@@ -1,14 +1,17 @@
 import streamlit as st
-from sqlalchemy import text
+from sqlalchemy import text, create_session
+import pandas as pd
 
 list_doctor = ['', 'dr. Nurita', 'dr. Yogi', 'dr. Wibowo', 'dr. Ulama', 'dr. Ping']
 list_symptom = ['', 'male', 'female']
 
 conn = st.connection("postgresql", type="sql", 
                      url="postgresql://kashikogaming:p1BLaQZfwG0d@ep-orange-poetry-84084177.ap-southeast-1.aws.neon.tech/Milky%20Way")
-with conn.session as session:
-    query = text('CREATE TABLE IF NOT EXISTS SCHEDULE (id serial, doctor_name varchar, patient_name varchar, gender char(25), \
-                                                       symptom text, handphone varchar, address text, tanggal date);')
+session = create_session(st.connection)
+with session.connect() as conn:
+    conn.execute('CREATE TABLE IF NOT EXISTS SCHEDULE (id serial, doctor_name varchar, patient_name varchar, gender char(25), \
+                                                       symptom text, handphone varchar, address text, waktu time, tanggal date);')
+
     session.execute(query)
 
 st.header('SIMPLE HOSPITAL DATA MANAGEMENT SYS')
