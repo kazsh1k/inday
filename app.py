@@ -66,7 +66,7 @@ if page == "Edit Data":
                 
                 with col2:
                     if st.form_submit_button('DELETE'):
-                        query = text(f'DELETE FROM sebaran_pekerjaan WHERE id=:1;')
-                        session.execute(query, {':1':id})
+                        query = text(f'DELETE FROM sebaran_pekerjaan')
+                        session.execute(query)
                         session.commit()
                         st.experimental_rerun()
