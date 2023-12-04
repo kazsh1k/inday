@@ -62,7 +62,7 @@ if page == "Edit Data":
                             session.execute(query, {'1':nama_mahasiswa_baru, '2':nrp_mahasiswa_baru, '3':jenis_kelamin_baru, '4':angkatan_baru, 
                                                     '5':alamat_domisili_baru, '6':email_baru, '7':handphone_baru, '8':sosmed_baru, '9':nama_instansi_baru, '10': jabatan_baru, '11':alamat_instansi_baru, '12':id})
                             session.commit()
-                            st.experimental_rerun()
+                            st.rerun()
                 
                 with col2:
                     if st.form_submit_button('DELETE'):
@@ -70,4 +70,4 @@ if page == "Edit Data":
                             query = text(f'DELETE FROM sebaran_pekerjaan WHERE id=:1')
                             session.execute(query, {'1':id})
                             session.commit()
-                            st.experimental_rerun()
+                            st.rerun()
