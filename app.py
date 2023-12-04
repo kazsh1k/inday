@@ -16,12 +16,12 @@ if page == "View Data":
 if page == "Edit Data":
     if st.button('Tambah Data'):
         with conn.session as session:
-            query = text('INSERT INTO sebaran_data (nama_mahasiswa, nrp_mahasiswa, jenis_kelamin, angkatan, alamat_domisili, email, handphone, sosmed, nama_instansi, jabatan, alamat_instansi)\
+            query = text('INSERT INTO sebaran_pekerjaan (nama_mahasiswa, nrp_mahasiswa, jenis_kelamin, angkatan, alamat_domisili, email, handphone, sosmed, nama_instansi, jabatan, alamat_instansi)\
                           VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11);')
             session.execute(query, {'1': '', '2': '', '3': '', '4': '', '5': '', '6': '', '7': '', '8': ' ', '9': '', '10': ' ', '11': ''})
             session.commit()
 
-    data = conn.query('SELECT * FROM sebaran_alumni ORDER By id;', ttl="0")
+    data = conn.query('SELECT * FROM sebaran_pekerjaan ORDER By id;', ttl="0")
     for _, result in data.iterrows():        
         id = result['id']
         nama_mahasiswa_lama = result["nama_mahasiswa"]
@@ -55,7 +55,7 @@ if page == "Edit Data":
                 with col1:
                     if st.form_submit_button('UPDATE'):
                         with conn.session as session:
-                            query = text('UPDATE sebaran_alumni\
+                            query = text('UPDATE sebaran_pekerjaan\
                                           SET nama_mahasiswa=:1, nrp_mahasiswa=:2, jenis_kelamin=:3, angkatan=:4, \
                                           alamat_domisili=:5, email=:6, handphone=:7, sosmed=:8 , nama_instansi=:9,  jabatan=:10, alamat_instansi=:11 \
                                           WHERE id=:12;')
@@ -66,7 +66,7 @@ if page == "Edit Data":
                 
                 with col2:
                     if st.form_submit_button('DELETE'):
-                        query = text(f'DELETE FROM sebaran_alumni WHERE id=:1;')
+                        query = text(f'DELETE FROM sebaran_pekerjaan WHERE id=:1;')
                         session.execute(query, {'1':id})
                         session.commit()
                         st.experimental_rerun()
